@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# Rewrites /etc/hosts so localhost resolves to 127.0.0.2 and facebook.com to 8.8.8.8
-new_hosts=$(mktemp)
+# Configures localhost to resolve to 127.0.0.2 and facebook.com to 8.8.8.8
 
-sed 's/^127\.0\.0\.1\([[:space:]]\)/127.0.0.2\1/' /etc/hosts > "$new_hosts"
-printf '8.8.8.8\tfacebook.com\n' >> "$new_hosts"
-
-cat "$new_hosts" > /etc/hosts
-rm -f "$new_hosts"
+sed -i 's/^127\.0\.0\.1[[:space:]][[:space:]]*localhost/127.0.0.2\tlocalhost/' /etc/hosts
+echo -e "8.8.8.8\tfacebook.com" >> /etc/hosts
